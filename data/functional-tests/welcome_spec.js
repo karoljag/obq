@@ -101,8 +101,10 @@ describe("User's achievements suite", function() {
 
         })
 
-        .toss();
+        .toss();xxxxxxxxxxxxxxxxxxxx
 
     });
 
 });
+
+xxxxxxxxxxxxxxx
