@@ -1,0 +1,13 @@
+{
+	"$schema": "http://json-schema/draft-04/schema#",
+	"description": "a user code object for PUT",
+	"type": "object",
+	"properties": {
+		"status": {
+			"description": "the status of the code",
+			"enum": [ "disabled", "redeemed"]
+			}
+		},
+	"additionalProperties": false,
+	"required": [ "status" ]
+}

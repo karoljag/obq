@@ -1,0 +1,90 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "a notification object",
+    "type": "object",
+    "oneOf": [
+        { "$ref": "#/definitions/badgeEarned" },
+        { "$ref": "#/definitions/levelchanged" },
+        { "$ref": "#/definitions/voucherEarned" },
+        { "$ref": "#/definitions/voucherRedeemed" }
+    ],
+    "definitions": {
+        "common": {
+            "properties": {
+                "id": {             
+                    "description": "the id of the notification",
+                    "type": "string"
+                    },
+                "memberLevel": {
+                    "description": "the level of the user",
+                    "type": "number"
+                    },
+                "createdAt": {
+                    "description": "the time the achievement was created given in the DateTime format",
+                    "type": "string"
+                    },
+                "isRead": {
+                    "description": "specified whether the notification has been read",
+                    "type": "boolean"
+                    }
+                }
+            },
+        "badgeEarned": {
+            "properties": {
+                "id": { "$ref": "#/definitions/common/properties/id" },
+                "type": {
+                    "description": "the type of the notification",
+                    "enum": [ "notificationEarned" ]
+                    },
+                "badge": {
+                    "description": "an achievement object the notification is related to",
+                    "type": "object",
+                    "properties": { "$ref": "user_achievement.json#/properties" }
+                    },
+                "memberLevel": { "$ref": "#/definitions/common/properties/memberLevel" },
+                "createdAt": { "$ref": "#/definitions/common/properties/createdAt" },
+                "isRead": { "$ref": "#/definitions/common/properties/isRead" }
+                }
+            },
+        "levelchanged": {
+            "properties": {
+                "id": { "$ref": "#/definitions/common/properties/id" },
+                "type": {
+                    "description": "the type of the notification",
+                    "enum": [ "levelchanged" ]
+                    },
+                "memberLevel": { "$ref": "#/definitions/common/properties/memberLevel" },
+                "toNextLevel": {
+                    "description": "number of badges the user needs to earn to get to the next level",
+                    "type": "number"
+                    },
+                "createdAt": { "$ref": "#/definitions/common/properties/createdAt" },
+                "isRead": { "$ref": "#/definitions/common/properties/isRead" }
+                }
+            },
+        "voucherEarned": {
+            "properties": {
+                "id": { "$ref": "#/definitions/common/properties/id" },
+                "type": {
+                    "description": "the type of the notification",
+                    "enum": [ "voucherEarned" ]
+                    },
+                "memberLevel": { "$ref": "#/definitions/common/properties/memberLevel" },
+                "createdAt": { "$ref": "#/definitions/common/properties/createdAt" },
+                "isRead": { "$ref": "#/definitions/common/properties/isRead" }
+                }
+            },
+        "voucherRedeemed": {
+            "properties": {                
+                "id": { "$ref": "#/definitions/common/properties/id" },
+                "type": {
+                    "description": "the type of the notification",
+                    "enum": [ "voucherEarned" ]
+                    },
+                "memberLevel": { "$ref": "#/definitions/common/properties/memberLevel" },
+                "createdAt": { "$ref": "#/definitions/common/properties/createdAt" },
+                "isRead": { "$ref": "#/definitions/common/properties/isRead" }               
+            }
+        }
+    }
+}

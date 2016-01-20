@@ -1,0 +1,8 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "empty schema",
+    "required": false,
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+}

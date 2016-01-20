@@ -1,0 +1,94 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "an achievement object for PUT",
+    "type": "object",
+    "properties": {
+        "package": {
+            "description": "the package the achievement belongs to",
+            "type": "number"
+        },
+        "desc": {
+            "description": "description of the achievement",
+            "type": "object",
+            "properties": {
+                "en": {
+                    "type": [ "string", "null" ],
+                    "description": "description in English"
+                },
+                "de": {
+                    "type": [ "string", "null" ],
+                    "description": "description in German"
+                }
+            }
+        },
+        "name": {
+            "description": "the name of the achievement",
+            "type": "object",
+            "properties": {
+                "en": {
+                    "type": [ "string", "null" ],
+                    "description": "name in English"
+                },
+                "de": {
+                    "type": [ "string", "null" ],
+                    "description": "name in German"
+                } 
+            }
+        },
+        "icon": {
+            "description": "URLs to achievement icons",
+            "type": "object",
+            "properties": {
+                "en": {
+                    "type": [ "string", "null" ],
+                    "description": "icon in English"
+                },
+                "de": {
+                    "type": [ "string", "null" ],
+                    "description": "icon in German"
+                }             
+            }
+        },
+        "category": {
+            "description": "the category of the achievement",
+            "enum": [
+                "other", 
+                "social", 
+                "trial", 
+                "mainentance", 
+                "frequency"
+            ]
+        },
+        "counter": {
+            "description": "counter related to the achievement",
+            "type": "number"
+        },
+        "type": {
+            "description": "the type of the achievement",
+            "enum": [ "onetime", "progressive" ]
+        },
+        "visibility": {
+            "description": "visibility of the achievement",
+            "enum": [ "standard", "surprise" ]
+        },
+        "group": {
+            "description": "the group the achievement belongs to",
+            "enum": [ "brew", "buy", "usage", "createRecipe", "addFavoriteRecipe", "shareRecipe", "tellFriend" ]
+        },
+        "level": {
+            "description": "the level of the achievement",
+            "type": "number"
+        }
+    },
+    "additionalProperties": {
+        "description": "an achievement property added by the admin, key:value pairs of any data type",
+    	"type": ["string", "object", "boolean", "array", "number", "null" ]
+    },
+    "patternProperties": {
+        "[$.]": {
+            "not": {},
+            "description": "forbidden characters in property keys: dollar signs $ and dots ."            
+        }
+    },
+    "required": [ "name" ]
+}

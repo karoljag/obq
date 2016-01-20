@@ -1,0 +1,41 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"description": "action list",
+	"type":"array",
+	"items": {
+		"type": "object",
+		"properties":{
+	    	"id": {
+	    		"description": "the id of the action",
+	    		"type": "string"
+	    	},
+	        "name": {
+	            "description": "the name of the action",
+	            "type": "string"
+	            },
+	        "description": {
+	            "description": "description of the action",
+	            "type": "string"
+	        },
+	        "code": {
+	            "description": "JavaScript code",
+	            "type": "string"
+	        },
+	        "arguments": {
+	            "description": "arguments of the script",
+	            "type": "array",
+	            "items": {
+	                "type": "string"
+	            }
+	        },
+	        "tags": {
+	            "description": "the ids of tags in the context of which the actions are executed; when editing, this field is ignored",
+	            "type": "array",
+	            "items": {
+	                "type": "string"
+	            }
+	        }           
+	    },
+	    "required": [ "id", "name", "code", "tags" ]
+	}
+}

@@ -1,0 +1,22 @@
+{
+  "name": "ScriptTester",
+  "version": "0.0.1",
+  "description": "",
+  "main": "travel_counterInc_spec.js",
+  "dependencies": {
+    "colors": "^1.0.3",
+    "lodash": "^2.4.1",
+    "moment": "^2.9.0",
+    "q": "^1.1.2",
+    "random-string": "^0.1.2",
+    "request": "^2.51.0",
+    "restler": "3.*",
+    "uglify-js": "^2.4.16"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jakub <jakub.szalek@gmail.com>",
+  "license": "ISC"
+}

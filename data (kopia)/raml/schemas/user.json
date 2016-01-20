@@ -1,0 +1,56 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "a user object",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "the id of the object",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]+$"
+            },
+        "uid": {
+            "description": "the id of the user",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]+$"
+            },
+        "countryCode": {
+            "type": "string",
+            "description": "country code of the user"
+            },
+        "email": {
+            "type": ["string", "null" ],
+            "description": "the user's email"
+            },
+        "confirmationState": {
+            "enum": [ "PENDING", "CONFIRMED", "CHANGED" ],
+            "description": "specifies whether the user has been confirmed"
+            },
+        "nickname": {
+            "type": [ "string", "null" ],
+            "description": "the user's nickname"
+            },
+        "tags": {
+            "description": "tags attributed to the user",
+            "type": "array",
+            "items": {
+                "type": "string" 
+            }
+        },
+        "groups": {
+            "description": "the ids of groups the user belongs to",
+            "type": "array",
+            "items": {
+                "type": "string" 
+                }   
+            },
+        "productNews": {
+            "description": "specifies whether the user should receive product news",
+            "type": "boolean"
+            }            
+        },
+    "additionalProperties": {
+            "description": "a user property added by the admin, a key:value pair of any data type",
+            "type": ["string", "object", "boolean", "array", "number", "null" ]
+        },
+    "required": [ "uid" ]   
+}

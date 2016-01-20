@@ -1,0 +1,6 @@
+.idea
+tests/node_modules
+setup/achievements.json
+setup/createAchievements.js
+setup/achievements.csv
+setup/newAchievements.json

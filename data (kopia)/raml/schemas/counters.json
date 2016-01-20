@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "counter list",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+    	   "name": {
+    	       "description": "the name of the counter",
+    	       "type": "string"
+    	       },
+    	   "value": {
+    	       "description": "the value of the counter",
+    	       "type": "number" 		
+            }
+        }
+    },
+    "required": [ "name", "value" ]	
+}

@@ -1,0 +1,258 @@
+#%RAML 0.8
+title: "QBO REST API"
+version: "v1"
+baseUri: "http://qbo-prod.isaacloud.com"
+protocols: [HTTPS]
+mediaType: "application/json"
+
+# documentation:
+#  - title: Getting Started
+#    content: !include getting-started.md
+#  - title: Basics of Authentication
+#    content: !include basics-of-authentication.md
+
+resourceTypes:
+  - collection:
+      description: Manage the collection of <<resourcePathName|>>.
+      get?:
+        description: Gets the list of all <<resourcePathName>>.
+        responses:
+          200:
+            description: Success!
+            headers:
+              Pending:
+                displayName: Pending
+                type: string
+                required: false
+                example: !include static-examples/pending_header.json
+              Paginator:
+                displayName: Paginator
+                required: true
+                type: string
+                example: !include static-examples/pagination_header.json
+            body:
+              application/json:
+                example: "example"
+                schema: "schema"
+          404:
+            description: Not Found
+            body:
+              application/json:
+                example: !include static-examples/error_404.json
+                schema: !include schemas/error.json
+          500:
+            description: Server Error
+            body:
+              application/json:
+                example: !include static-examples/error_500.json
+                schema: !include schemas/error.json      
+      post?:
+        description: Creates a new <<resourcePathName|!singularize>>.
+        headers:
+          async:
+            description: determines whether the request should be handled asynchronously
+            type: boolean
+            required: false
+        responses:
+          400:
+            description: Bad Request
+            body:
+              application/json:
+                example: !include static-examples/error_400.json
+                schema: !include schemas/error.json
+          404:
+            description: Not Found
+            body:
+              application/json:
+                example: !include static-examples/error_404.json
+                schema: !include schemas/error.json
+          500: 
+            description: Server Error
+            body:
+              application/json:
+                example: !include static-examples/error_500.json
+                schema: !include schemas/error.json                      
+  - collection-item:
+      description: Manage single <<resourcePathName|!singularize>> items.
+      get?:
+        description: |
+          Gets <<resourcePathName|!singularize>>
+          by <<resourcePathName|!singularize>>Id =
+          {<<resourcePathName|!singularize>>Id}
+        responses:
+          200:
+            description: Success!
+            headers:
+              Pending:
+                type: string
+                required: false
+                example: !include static-examples/pending_header.json
+            body:
+              application/json:
+                example: "example"
+                schema: "schema"              
+          404:
+            description: Not Found
+            body:
+              application/json:
+                example: !include static-examples/error_404.json
+                schema: !include schemas/error.json
+          409:
+            description: Conflict
+            headers:
+              Pending:
+                description: an array with ids of pending operations
+                type: string
+                required: true
+                example: !include static-examples/pending_header.json
+            body:
+              application/json:
+                example: !include static-examples/error_409.json
+                schema: !include schemas/error.json                   
+          500: 
+            description: Server Error
+            body:
+              application/json:
+                example: !include static-examples/error_500.json
+                schema: !include schemas/error.json     
+      put?:
+        description: |
+          Edits <<resourcePathName|!singularize>>
+          by <<resourcePathName|!singularize>>Id =
+          {<<resourcePathName|!singularize>>Id}
+        headers:
+          async:
+            description: determines whether the request should be handled asynchronously
+            type: boolean
+            required: false          
+        responses:
+          400:
+            description: Bad Request
+            body:
+              application/json:
+                example: !include static-examples/error_400.json
+                schema: !include schemas/error.json
+          404:
+            description: Not Found
+            body:
+              application/json:
+                example: !include static-examples/error_404.json
+                schema: !include schemas/error.json
+          500: 
+            description: Server Error
+            body:
+              application/json:
+                example: !include static-examples/error_500.json
+                schema: !include schemas/error.json
+      patch?:
+        description: |
+          Updates <<resourcePathName|!singularize>>
+          partially by <<resourcePathName|!singularize>>Id =
+          {<<resourcePathName|!singularize>>Id}
+        headers:
+          async:
+            description: determines whether the request should be handled asynchronously
+            type: boolean
+            required: false         
+        responses:
+          400:
+            description: Bad Request
+            body:
+              application/json:
+                example: !include static-examples/error_400.json
+                schema: !include schemas/error.json
+          404:
+            description: Not Found
+            body:
+              application/json:
+                example: !include static-examples/error_404.json
+                schema: !include schemas/error.json
+          500: 
+            description: Server Error
+            body:
+              application/json:
+                example: !include static-examples/error_500.json
+                schema: !include schemas/error.json                       
+      delete?:
+        description: |
+          Deletes <<resourcePathName|!singularize>>
+          by <<resourcePathName|!singularize>>Id =
+          {<<resourcePathName|!singularize>>Id}
+        headers:
+          async:
+            description: determines whether the request should be handled asynchronously
+            type: boolean
+            required: false          
+        responses:
+          404:
+            description: Not Found
+            body:
+              application/json:
+                example: !include static-examples/error_404.json
+                schema: !include schemas/error.json
+          409:
+            description: Conflict
+            headers:
+              Pending:
+                description: an array with ids of pending operations
+                type: string
+                required: true
+                example: !include static-examples/pending_header.json
+            body:
+              application/json:
+                example: !include static-examples/error_409.json
+                schema: !include schemas/error.json                     
+          500: 
+            description: Server Error
+            body:
+              application/json:
+                example: !include static-examples/error_500.json
+                schema: !include schemas/error.json      
+# securedBy:           
+traits:
+  - paginable:
+      queryParameters:
+        limit:
+          description: the number of items returned
+          type: number
+        offset:
+          description: the starting position
+          type: number
+  - sortable:
+      queryParameters:
+        order:
+          description: |
+            comma-separated list of strings 
+            in the field:order_type format, 
+            where order_type is ASC (ascending) 
+            or DESC (descending)
+          type: string
+          example: surname:DESC,createdAt:DESC
+  - query:
+      queryParameters:
+        query:
+          description: |
+            comma-separated list of strings 
+            in the format of "field":"value" 
+            between curly brackets {}, 
+            where field contains a short name 
+            or a long one for nested fields 
+            (two field names separated by a dot) 
+            and value can contain comparison operators:
+            $gt, $ge, $lt, $le, $in, $nin, $or.
+          type: string
+          example: !include static-examples/query.json
+  - fieldable:
+      queryParameters:
+        fields:
+          description: |
+            comma-separated list of strings - 
+            the names of fields to be returned; 
+            for nested fields, the names are separated by a dot
+          type: string
+          example: firstName,surname,address.street
+/users: !include users.raml              
+/achievements: !include achievements.raml
+/tags: !include tags.raml
+/actions: !include actions.raml
+/vouchers: !include vouchers.raml

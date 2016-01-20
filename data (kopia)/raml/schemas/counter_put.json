@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "a counter object for PUT",
+    "type": "object",
+    "properties": {
+    	"value": {
+    		"description": "the value of the counter",
+    		"type": "number" 		
+        }
+    },
+    "required": [ "value" ]	
+}

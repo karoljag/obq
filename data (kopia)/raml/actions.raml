@@ -1,0 +1,114 @@
+displayName: Actions
+type: collection
+get:
+  description: Gets an entire collection of actions.
+  is: [ paginable, sortable, query, fieldable ]
+  responses:
+    200:
+      body:
+        application/json:
+          example: !include examples/actions.json
+          schema: !include schemas/actions.json
+post:
+  description: Creates an action with a system-generated id.
+  body:
+    application/json:
+      schema: !include schemas/action_post.json
+      example: !include examples/action_post.json
+  responses:
+    201:
+      headers:
+        Pending:
+          description: an array with ids of pending operations
+          type: string
+          required: false
+          example: !include static-examples/pending_header.json 
+      body:
+        application/json:
+          schema: !include schemas/action.json
+          example: !include examples/action.json
+/{actionId}:
+  type: collection-item
+  uriParameters:
+    actionId:
+      pattern: "^[A-Za-z0-9_-]+$"    
+  get:
+    description: Gets an action by its id.
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include schemas/action.json
+            example: !include examples/action.json
+  put:
+    description: Creates or edits an action with a specified id.
+    body:
+      application/json:
+        schema: !include schemas/action.json
+        example: !include examples/action.json
+    responses:
+      201:
+        headers:
+          Pending:
+            description: an array with ids of pending operations
+            type: string
+            required: false
+            example: !include static-examples/pending_header.json 
+        body:
+          application/json:
+            schema: !include schemas/action.json
+            example: !include examples/action.json
+      200:
+        headers:
+          Pending:
+            description: an array with ids of pending operations
+            type: string
+            required: false
+            example: !include static-examples/pending_header.json        
+        body:
+          application/json:
+            schema: !include schemas/action.json
+            example: !include examples/action.json
+  patch:
+    description: Updates an action partially by its id.
+    body:
+      application/json: 
+        example: !include examples/action_patch.json
+        schema: !include schemas/action_patch.json
+    responses:  
+      200:
+        headers:
+          Pending:
+            description: an array with ids of pending operations
+            type: string
+            required: false
+            example: !include static-examples/pending_header.json
+        body:
+          application/json:
+            example: !include examples/action.json
+            schema: !include schemas/action.json             
+  delete:
+    description: Deletes an action by its id.
+    responses:
+      204:
+        body:
+          application/json:
+            example: ""
+  /tags:
+    /{tagId}:
+      type: collection-item
+      put:
+        description: Adds a tag to an action.
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/action.json
+                schema: !include schemas/action.json  
+      delete:
+        description: Removes a tag from an action.
+        responses:
+          204:
+           body:
+              application/json:
+                example: "" 

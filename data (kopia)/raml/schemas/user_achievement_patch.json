@@ -1,0 +1,93 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "a user achievement object for PATCH",
+    "type": "object",
+    "properties": {
+        "package": {
+            "description": "the package the achievement belongs to",
+            "type": "number"
+        },
+        "desc": {
+            "description": "description of the achievement",
+            "type": "object",
+            "properties": {
+                "en": {
+                    "type": [ "string", "null" ],
+                    "description": "description in English"
+                },
+                "de": {
+                    "type": [ "string", "null" ],
+                    "description": "description in German"
+                }
+            }
+        },
+        "name": {
+            "description": "the name of the achievement",
+            "type": "object",
+            "properties": {
+                "en": {
+                    "type": [ "string", "null" ],
+                    "description": "name in English"
+                },
+                "de": {
+                    "type": [ "string", "null" ],
+                    "description": "name in German"
+                } 
+            }
+        },
+        "icon": {
+            "description": "URLs to achievement icons",
+            "type": "object",
+            "properties": {
+                "en": {
+                    "type": [ "string", "null" ],
+                    "description": "icon in English"
+                },
+                "de": {
+                    "type": [ "string", "null" ],
+                    "description": "icon in German"
+                }             
+            }
+        },
+        "earnedAt": {
+            "description": "the time the user earned the achievement given in DateTime format",
+            "type": "string"
+            },
+        "category": {
+            "description": "the category of the achievement",
+            "enum": [
+                "other", 
+                "social", 
+                "trial", 
+                "mainentance", 
+                "frequency"
+            ]
+        },
+        "counter": {
+            "description": "counter related to the achievement",
+            "type": "number"
+        },
+        "type": {
+            "description": "the type of the achievement",
+            "type": "string,enum?; onetime; progressive"
+        },
+        "visibility": {
+            "description": "visibility of the achievement",
+            "type": "string,enum; standard, surprise?"
+        },
+        "level": {
+            "description": "the level of the achievement",
+            "type": "number"
+        }
+    },
+    "additionalProperties": {
+        "description": "an achievement property added by the admin, key:value pairs of any data type",
+    	"type": ["string", "object", "boolean", "array", "number", "null" ]
+	},
+    "patternProperties": {
+        "[$.]": {
+            "not": {},
+            "description": "forbidden characters in property keys: dollar signs $ and dots ."            
+            }
+    }    
+}

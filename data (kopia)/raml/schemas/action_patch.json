@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "an action object for PATCH",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "the name of the action",
+            "type": "string"
+            },
+        "description": {
+            "description": "description of the action",
+            "type": "string"
+        }   
+    },
+    "required": [],
+    "additionalProperties": false
+}

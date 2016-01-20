@@ -1,0 +1,286 @@
+type: collection
+displayName: Vouchers
+get:
+  is: [ paginable, sortable, query, fieldable ]
+  description: Gets the list of vouchers.
+  responses:
+    200:
+      body:
+        application/json:
+          schema: !include schemas/vouchers.json
+          example: !include examples/vouchers.json
+post:
+  description: Creates a voucher with a system-generated id.
+  body:
+    application/json:
+      example: !include examples/voucher_post.json
+      schema: !include schemas/voucher_post.json
+  responses:
+    201:
+      body:
+        application/json:
+          schema: !include schemas/voucher.json
+          example: !include examples/voucher.json
+    202:
+      headers:
+        Pending:
+          description: an array with ids of pending operations
+          type: string
+          example: !include static-examples/pending_header.json
+          required: true
+      body:
+        application/json:
+          example: ""
+          schema: ""                
+/{voucherId}:
+  type: collection-item
+  uriParameters:
+    voucherId:
+      pattern: "^[A-Za-z0-9_-]+$"
+      type: string
+  get:
+    description: Gets a voucher by its id.
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/voucher.json
+            schema: !include schemas/voucher.json
+  put:
+    description: Creates a voucher with a specified id or edits a voucher by its id.
+    body:
+      application/json:
+        example: !include examples/voucher_put.json
+        schema: !include schemas/voucher_put.json
+    responses:
+      201:
+        body:
+          application/json:
+            example: !include examples/voucher.json
+            schema: !include schemas/voucher.json
+      200:
+        body:
+          application/json:
+            example: !include examples/voucher.json
+            schema: !include schemas/voucher.json
+      202:
+        headers:
+          Pending:
+            description: an array with ids of pending operations
+            type: string
+            required: true
+            example: !include static-examples/pending_header.json
+        body:
+          application/json:
+            example: ""
+            schema: ""   
+  patch:
+    description: Updates properties of a voucher by its id.
+    body:
+      application/json:
+        example: !include examples/voucher_patch.json
+        schema: !include schemas/voucher_patch.json
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/voucher.json
+            schema: !include schemas/voucher.json
+      202:
+        headers:
+          Pending:
+            description: an array with ids of pending operations
+            type: string
+            required: true
+            example: !include static-examples/pending_header.json
+        body:
+          application/json:
+            example: ""
+            schema: ""         
+  delete:
+    description: Deletes a voucher by its id. Changes "active" to "false" and statuses of all codes to "disabled".
+    responses:
+      204:
+        body:
+          application/json:
+            example: ""
+      202:
+        headers:
+          Pending:
+            description: an array with ids of pending operations
+            type: string
+            required: true
+            example: !include static-examples/pending_header.json
+        body:
+          application/json:
+            example: ""     
+  /codes:
+    type: collection
+    get:
+      is: [ paginable, sortable, query, fieldable ]
+      description: Gets the list of all codes in a voucher.
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/codes_post.json
+              schema: !include schemas/codes_post.json
+    post:
+      description: Adds codes sent in the body of the request to a voucher.
+      body:
+        application/json:
+          example: !include examples/codes_post.json
+          schema: !include schemas/codes_post.json
+      responses:
+        201:
+          body:
+            application/json:
+              example: !include examples/codes.json
+              schema: !include schemas/codes.json
+        202:
+          headers:
+            Pending:
+              description: an array with ids of pending operations
+              type: string
+              required: true
+              example: !include static-examples/pending_header.json
+          body:
+            application/json:
+              example: ""
+              schema: ""                     
+    patch:
+      description: Updates or adds codes sent in the body of the request to a voucher.
+      body:
+        application/json:
+          example: !include examples/codes_patch.json
+          schema: !include schemas/codes_patch.json
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/codes.json
+              schema: !include schemas/codes.json
+        202:
+          headers:
+            Pending:
+              description: an array with ids of pending operations
+              type: string
+              required: true
+              example: !include static-examples/pending_header.json
+          body:
+            application/json:
+              example: ""
+              schema: ""                    
+    /{codeId}:
+      type: collection-item
+      uriParameters:
+        codeId:
+          description: the id of a code
+          type: string
+          pattern: "^[A-Za-z0-9_-]+$"
+      get:
+        description: Gets a single code in a voucher.
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/code.json
+                schema: !include schemas/code.json
+      put:
+        description: Updates properites of a single code. status sent in the body of the request is ignored. Works only for active codes.
+        body:
+          application/json:
+            example: !include examples/code_put.json
+            schema: !include schemas/code_put.json
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/code.json
+                schema: !include schemas/code.json
+          202:
+            headers:
+              Pending:
+                description: an array with ids of pending operations
+                type: string
+                required: true
+                example: !include static-examples/pending_header.json
+            body:
+              application/json:
+                example: ""
+                schema: ""                     
+      delete: 
+        description: Deletes a single code in a voucher. Changes its status to "disabled".
+        responses:
+          204:
+            body:
+              application/json:
+                example: ""
+          202:
+            headers:
+              Pending:
+                description: an array with ids of pending operations
+                type: string
+                required: true
+                example: !include static-examples/pending_header.json
+            body:
+              application/json:
+                example: ""      
+      /status:
+        /active:
+          put:
+            description: Changes the status of a code to "active". Works only for disabled codes that have never been assigned.
+            responses: 
+              200:
+                body:
+                  application/json:
+                    example: !include examples/code.json
+                    schema: !include schemas/code.json
+              202:
+                headers:
+                  Pending:
+                    description: an array with ids of pending operations
+                    type: string
+                    required: true
+                    example: !include static-examples/pending_header.json
+                body:
+                  application/json:
+                    example: ""
+        /redeemed:
+          put:
+            description: Changes the status of a code to "redeemed". Works only for assigned codes.
+            responses: 
+              200:
+                body:
+                  application/json:
+                    example: !include examples/code.json
+                    schema: !include schemas/code.json
+              202:
+                headers:
+                  Pending:
+                    description: an array with ids of pending operations
+                    type: string
+                    required: true
+                    example: !include static-examples/pending_header.json
+                body:
+                  application/json:
+                    example: ""
+        /disabled:
+          put:
+            description: Changes the status of a code to "disabled". Does not work for redeemed codes.
+            responses: 
+              200:
+                body:
+                  application/json:
+                    example: !include examples/code.json
+                    schema: !include schemas/code.json
+              202:
+                headers:
+                  Pending:
+                    description: an array with ids of pending operations
+                    type: string
+                    required: true
+                    example: !include static-examples/pending_header.json
+                body:
+                  application/json:
+                    example: ""                                      
