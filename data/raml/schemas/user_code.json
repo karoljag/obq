@@ -1,0 +1,42 @@
+{
+	"$schema": "http://json-schema/draft-04/schema#",
+	"description": "a user code object",
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "string",
+			"description": "the id of the code"
+		},
+		"status": {
+			"enum": [ "redeemed", "assigned" ],
+			"description": "the status of the code",
+			"default": "active"
+		},
+		"name": { 
+			"$ref": "voucher.json#/name" 
+			},
+		"description": {
+			"$ref": "voucher.json#/description" 
+			},
+		"voucherId": { 
+			"$ref": "voucher.json#/id" 
+		},
+		"picture": {
+			"$ref": "voucher.json#/picture" 
+			},
+		"startDate": {
+			"$ref": "voucher.json#/startDate" 
+			},
+		"endDate": {
+			"$ref": "voucher.json#/endDate" 
+			},
+		"about": {
+			"description": "information about the user's voucher code"
+		}		
+	},
+	"additionalProperties": {
+		"type": [ "string", "object", "boolean", "array", "number" ],
+		"description": "a code property added by the admin, a key:value pair of any data type; inherited from the parent voucher object and/or the body of the assinging request"
+		},
+	"required": [ "id", "status" ]
+}

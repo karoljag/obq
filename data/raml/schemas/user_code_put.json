@@ -1,0 +1,22 @@
+{
+	"$schema": "http://json-schema/draft-04/schema#",
+	"description": "a user code object for PUT",
+	"type": "object",
+	"properties": {
+		"about": {
+			"description": "information about the user's voucher code",
+			"type": "string"
+			}
+		},
+	"additionalProperties": {
+		"type": [ "string", "object", "boolean", "array", "number" ],
+		"description": "a code property added by the admin, a key:value pair of any data type"
+	},
+	"patternProperties": {
+		"[$.]|^voucherId$|^ownerId$|^status$|^active$|^description$|^name$": {
+			"description": " forbidden characters in property keys: dollar signs $ and dots .; forbidden names in property keys: voucherId, ownerId, status, active, description, name",
+			"not": {}
+			}
+	},	
+	"required": [ ]
+}

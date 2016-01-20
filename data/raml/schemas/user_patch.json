@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Users",
+    "description": "a user object for PATCH",
+    "type": "object",
+    "properties": {
+        "uid": {
+            "description": "the id of the user",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]+$"
+            },
+        "countryCode": {
+            "type": "string",
+            "description": "country code of the user"
+            },
+        "email": {
+            "type": ["string", "null" ],
+            "description": "the user's email"
+            },
+        "confirmationState": {
+            "enum": [ "PENDING", "CONFIRMED", "CHANGED" ],
+            "description": "specifies whether the user has been confirmed"
+            },
+        "nickname": {
+            "type": [ "string", "null" ],
+            "description": "the user's nickname"
+            },
+        "groups": {
+            "description": "the ids of groups the user belongs to",
+            "type": "array",
+            "items": {
+                "type": "string" 
+                }   
+            },
+        "productNews": {
+            "description": "specifies whether the user should receive product news",
+            "type": "boolean"
+            }            
+        },
+    "additionalProperties": {
+            "description": "a user property added by the admin, a key:value pair of any data type",
+            "type": ["string", "object", "boolean", "array", "number", "null" ]
+        },
+    "patternProperties": {
+        "[$.]|^vouchers$|^notifications$|^schedules$|^counters$|^achievements$|^tasks$|^id$|^_id$": {
+            "description": "forbidden characters in property keys: dollar signs $ and dots .; forbidden names in property keys: vouchers, notifications, schedules, counters, achievements, tasks, id, _id",
+            "not": {}
+        }
+    },        
+    "required": [ ]   
+}   

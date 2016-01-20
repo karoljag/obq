@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "a tag object",
+    "type": "object",
+    "properties": {
+    	"id": {
+    		"description": "the name of the tag",
+    		"type": "string"
+    		},
+        "description": {
+            "description": "the description of the tag",
+            "type": "string"
+        }    
+    },
+    "additionalProperties": {
+            "description": "a tag property added by the admin, a key:value pair of any data type",
+            "type": ["string", "object", "boolean", "array", "number", "null" ]
+        },    
+    "required": [ "id" ],
+    "additionalProperties": false
+}

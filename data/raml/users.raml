@@ -1,0 +1,501 @@
+displayName: Users
+type: collection
+get:
+  description: Gets an entire collection of users.
+  is: [ paginable, sortable, query, fieldable ]
+  responses:
+    200:
+      body:
+        application/json:
+          example: !include examples/users.json
+          schema: !include schemas/users.json
+post:
+  description: Creates a user with a system-generated id.
+  body:
+    application/json: 
+      example: !include examples/user_post.json
+      schema: !include schemas/user_post.json
+  responses:
+    201:
+      body: 
+        application/json:
+          example: !include examples/user.json
+          schema: !include schemas/user.json      
+    202:
+      headers:
+        Pending:
+          description: an array with ids of pending operations
+          type: string
+          required: true
+          example: !include static-examples/pending_header.json
+      body:
+        application/json:
+          example: ""
+          schema: ""
+/{userId}:
+  type: collection-item
+  uriParameters:
+    userId:
+      pattern: "^[A-Za-z0-9_-]+$"
+  get:
+    description: Gets a user by its id.
+    responses:
+      200:      
+        body: 
+          application/json:
+            example: !include examples/user.json
+            schema: !include schemas/user.json    
+  put:   
+    description: Creates or edits a user with a specified id. 
+    body:
+      application/json: 
+        example: !include examples/user_put.json
+        schema: !include schemas/user_put.json
+    responses:
+      201:
+        body: 
+          application/json:
+            example: !include examples/user.json
+            schema: !include schemas/user.json    
+      200:
+        body: 
+          application/json:
+            example: !include examples/user.json
+            schema: !include schemas/user.json                    
+      202:
+        headers:
+          Pending:
+            description: an array with ids of pending operations
+            type: string
+            required: true
+            example: !include static-examples/pending_header.json
+        body:
+          application/json:
+            example: ""
+            schema: ""
+  patch:
+    description: Updates a user partially by his/her id.
+    body:
+      application/json:
+        example: !include examples/user_patch.json
+        schema: !include schemas/user_patch.json
+    responses:
+      200:
+        body: 
+          application/json:
+            example: !include examples/user.json
+            schema: !include schemas/user.json        
+      202:
+        headers:
+          Pending:
+            description: an array with ids of pending operations
+            type: string
+            required: true
+            example: !include static-examples/pending_header.json
+        body:
+          application/json:
+            example: ""
+            schema: ""              
+  delete:
+    description: Deletes a user by its id.
+    responses:
+      204:
+        body: 
+          application/json:
+            example: ""
+      202:
+        headers:
+          Pending:
+            description: an array with ids of pending operations
+            type: string
+            required: true
+            example: !include static-examples/pending_header.json
+        body:
+          application/json:
+            example: ""
+  /events:
+    post:
+      description: Sends an event in the context of a user.
+      body:
+        application/json:
+          example: !include examples/event.json
+          schema: !include schemas/event.json
+      responses:
+        202:
+          body:
+            application/json:
+              example: !include static-examples/empty.json  
+  /achievements:
+    type: collection
+    get:
+      description: Gets a list of user's achievements.
+      is: [ paginable, sortable, query, fieldable ]
+      responses:
+        200:  
+          body:
+            application/json:
+              example: !include examples/user_achievements.json
+              schema: !include schemas/user_achievements.json
+    /{achievementId}:
+      type: collection-item
+      get:
+        description: Gets an achievement for a user by their ids.
+        responses:
+          200:           
+            body:
+              application/json:
+                example: !include examples/user_achievement.json
+                schema: !include schemas/user_achievement.json
+      put:
+        description: Creates an achievement for a user or edits it.
+        body:
+          application/json:
+            example: !include examples/user_achievement_put.json
+            schema: !include schemas/user_achievement_put.json
+        responses:
+          201:
+            body:
+              application/json:
+                example: !include examples/achievement.json
+                schema: !include schemas/achievement.json
+          200:
+            body:
+              application/json:
+                example: !include examples/achievement.json
+                schema: !include schemas/achievement.json        
+          202:
+            headers:
+              Pending:
+                description: an array with ids of pending operations
+                type: string
+                required: true
+                example: !include static-examples/pending_header.json 
+            body:
+              application/json:
+                example: ""
+                schema: "" 
+      patch:
+        description: Updates an achievement for a user partially by their ids.
+        body:
+          application/json:
+            example: !include examples/user_achievement_patch.json
+            schema: !include schemas/user_achievement_patch.json
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/achievement.json
+                schema: !include schemas/achievement.json        
+          202:
+            headers:
+              Pending:
+                description: an array with ids of pending operations
+                type: string
+                required: true
+                example: !include static-examples/pending_header.json
+            body:
+              application/json:
+                example: ""
+                schema: ""                     
+      delete:
+        description: Deletes an achievement from a user by their ids.
+        responses:
+          204:
+            body:
+              application/json:
+                example: ""         
+          202:
+            headers:
+              Pending:
+                description: an array with ids of pending operations
+                type: string
+                required: true
+                example: !include static-examples/pending_header.json 
+            body:
+              application/json:
+                example: ""
+  /counters:
+    type: collection
+    get:
+      description: Gets the list of user's counters.
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/counters.json
+              schema: !include schemas/counters.json
+    /{counterId}:
+      type: collection-item
+      uriParameters:
+        counterId:
+          pattern: "^[A-Za-z0-9_-]+$"
+      get:
+        description: Gets a user's counter.
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/counter.json
+                schema: !include schemas/counter.json
+      put:
+        description: Adds a counter to a user.
+        body:
+          application/json:
+            example: !include examples/counter_put.json
+            schema: !include schemas/counter_put.json
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/counter.json
+                schema: !include schemas/counter.json           
+          202:
+            headers:
+              Pending:
+                description: an array with ids of pending operations
+                type: string
+                required: true
+                example: !include static-examples/pending_header.json 
+            body:
+              application/json:
+                example: ""
+                schema: ""
+      delete:
+        description: Removes a counter from a user.
+        responses:
+          204:
+            body:
+              application/json:
+                example: ""               
+          202:
+            headers:
+              Pending:
+                description: an array with ids of pending operations
+                type: string
+                required: true
+                example: !include static-examples/pending_header.json 
+            body:
+              application/json:
+                example: ""
+  /tags:
+    type: collection
+    get:
+      is: [ paginable, sortable, query ]   
+      description: Gets the list of tags assigned to a user.
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/tag_array.json
+              schema: !include schemas/tag_array.json
+    /{tagId}:
+      type: collection-item
+      put:
+        description: Adds a tag to a user.
+        responses:
+          200:
+            body: 
+              application/json:
+                example: !include examples/user.json
+                schema: !include schemas/user.json 
+          202:
+            headers:
+              Pending:
+                description: an array with ids of pending operations
+                type: string
+                required: true
+                example: !include static-examples/pending_header.json
+            body:
+              application/json:
+                example: ""                        
+      delete:
+        description: Removes a tag from a user.
+        responses:
+          204:
+           body:
+              application/json:
+                example: ""
+          202:
+            headers:
+              Pending:
+                description: an array with ids of pending operations
+                type: string
+                required: true
+                example: !include static-examples/pending_header.json
+            body:
+              application/json:
+                example: ""                
+  /notifications:
+    type: collection
+    get:
+      is: [ paginable, sortable, query ]      
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/notifications.json
+              schema: !include schemas/notifications.json
+    post:
+      description: Creates a notification for a user with a system-generated id.      
+      body:
+        application/json:
+          example: !include examples/notification_post.json
+          schema: !include schemas/notification_post.json
+      responses:
+        201:
+          body:
+            application/json:
+              example:  !include examples/notification.json
+              schema: !include schemas/notification.json        
+        202:
+          headers:
+            Pending:
+              description: an array with ids of pending operations
+              type: string
+              required: true
+              example: !include static-examples/pending_header.json
+          body:
+            application/json:
+              example: !include static-examples/empty.json  
+              schema: !include static-examples/empty_schema.json  
+    /{notificationId}:
+      type: collection-item
+      uriParameters:
+        notificationId:
+          pattern: "^[A-Za-z0-9_-]+$"
+      get:
+        description: Gets a notification for a user by their id.
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/notification.json
+                schema: !include schemas/notification.json
+      put:
+        description: Creates or edits a notification for a user with a specified id.
+        body:
+          application/json:
+            example: !include examples/notification_put.json
+            schema: !include schemas/notification_put.json
+        responses:
+          201:
+            body:
+              application/json:
+                example:  !include examples/notification.json
+                schema: !include schemas/notification.json
+          200:
+              body:
+                application/json:
+                  example:  !include examples/notification.json
+                  schema: !include schemas/notification.json                         
+          202:
+            headers:
+              Pending:
+                description: an array with ids of pending operations
+                type: string
+                required: true
+                example: !include static-examples/pending_header.json
+            body:
+              application/json:
+                example: ""
+                schema: ""
+      delete:
+        description: Deletes a notification from a user by their ids.
+        responses:
+          204:
+            body:
+              application/json:
+                example: ""          
+          202:
+            headers:
+              Pending:
+                description: an array with ids of pending operations
+                type: string
+                required: true
+                example: !include static-examples/pending_header.json
+            body:
+              application/json:
+                example: ""
+  /codes:
+    type: collection
+    get:
+      description: Gets the list of voucher codes assigned to the user by his/her id.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include schemas/user_codes.json
+              example: !include examples/user_codes.json
+  /vouchers:            
+    /{voucherId}:
+      type: collection-item
+      put:
+        description: Adds a voucher code to the user by the id of the parent voucher.
+        body:
+          application/json:
+            example: !include examples/user_code_put.json
+            schema: !include schemas/user_code_put.json
+        responses:
+          202:
+            headers:
+              Pending:
+                type: string
+                required: false
+                example: !include static-examples/pending_header.json
+            body:
+              application/json:
+                example: ""
+                schema: ""
+      /codes:
+        type: collection
+        get:
+          is: [ paginable, sortable, fieldable, query ]
+          description: Gets the list of voucher codes assigned to the user by the id of the parent voucher.
+          responses:
+            200:
+              body:
+                application/json:
+                  example: !include examples/user_codes.json
+                  schema: !include schemas/user_codes.json
+        /{codeId}:
+          type: collection-item
+          get:
+            is: [ paginable, sortable, fieldable, query ]          
+            responses:
+              200:
+                body:
+                  application/json:
+                    example: !include examples/user_code.json
+                    schema: !include schemas/user_code.json
+          put:
+            description: |
+              [Deprecated] 
+              Edits a voucher code assigned to a user. 
+              Can be used to change the status of a user voucher code 
+              or to check whether a voucher code is assigned to a user.
+            body:
+              application/json:
+                example: !include examples/user_code_put.json
+                schema: !include examples/user_codes_code_put.json
+            responses:
+              200:
+                body:
+                  application/json:
+                    example: !include examples/user_code.json
+                    schema: !include examples/user_code.json
+          delete:
+            description: Removes a voucher code from a user. Changes its status to disabled.
+            responses:
+              204:
+                body:
+                  application/json:
+                    example: ""
+              202:
+                headers:
+                  Pending:
+                    type: string
+                    required: true
+                    example: !include static-examples/pending_header.json
+                body:
+                  application/json:
+                    example: ""    

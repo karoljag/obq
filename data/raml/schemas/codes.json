@@ -1,0 +1,37 @@
+{
+	"$schema": "http://json-schema/draft-04/schema#",
+	"description": "a code list",
+	"type": "array",
+	"items": {
+		"type": "object",
+		"properties": {
+			"id": {
+				"type": "string",
+				"description": "the id of the code"
+			},
+			"status": {
+				"enum": [ "active", "redeemed", "disabled", "assigned" ],
+				"description": "the status of the code; 0: active, 1: redeemed, 2: disabled, 3: assigned",
+				"default": "active"
+			},
+			"ownerId": {
+				"type": "string",
+				"description": "the id of the user the code is assigned to"
+			},
+			"voucherId": {
+				"type": "string",
+				"description": "the id of the voucher the code is belongs to"
+			}
+		},
+		"additionalProperties": {
+			"type": [ "string", "object", "boolean", "array", "number" ],
+			"description": "a code property added by the admin, a key:value pair of any data type"
+			},
+		"patternProperties": {
+			"[$.]": {
+				"not": {}
+			}
+		},
+		"required": [ "id", "voucherId", "status" ]
+	}
+}

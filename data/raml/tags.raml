@@ -1,0 +1,84 @@
+displayName: Tags
+type: collection
+get:
+  is: [ paginable, sortable, query, fieldable ]   
+  description: Gets the list of tags.
+  responses:
+    200:  
+      body:
+        application/json:
+          example: !include examples/tags.json
+          schema: !include schemas/tags.json
+/{tagId}:
+  type: collection-item
+  uriParameters:
+    tagId:
+      pattern: "^[A-Za-z0-9_]+$"   
+  put:
+    description: Creates or edits a tag with a specified id.    
+    body:
+      application/json:
+        example: !include examples/tag_put.json
+        schema: !include schemas/tag_post.json
+    responses:
+      200:
+        body: 
+          application/json:
+            example: !include examples/tag.json
+            schema: !include schemas/tag.json      
+      201:
+        body: 
+          application/json:
+            example: !include examples/tag.json
+            schema: !include schemas/tag.json         
+      202:
+        headers:
+          Pending:
+            description: an array with ids of pending operations
+            type: string
+            required: true
+            example: !include static-examples/pending_header.json
+        body:
+          application/json:
+            example: ""
+            schema: ""
+  patch:
+    description: Updates a tag partially by its id.
+    body:
+      application/json:
+        example: !include examples/tag_patch.json
+        schema: !include schemas/tag_patch.json
+    responses:
+      200:
+        body: 
+          application/json:
+            example: !include examples/tag.json
+            schema: !include schemas/tag.json      
+      202:
+        headers:
+          Pending:
+            description: an array with ids of pending operations
+            type: string
+            required: true
+            example: !include static-examples/pending_header.json
+        body:
+          application/json:
+            example: ""
+            schema: ""              
+  delete:
+    description: Deletes a tag by its id.
+    responses:
+      204:
+        body:
+          application/json:
+            example: ""     
+      202:
+        headers:
+          Pending:
+            description: an array with ids of pending operations
+            type: string
+            required: true
+            example: !include static-examples/pending_header.json
+        body:
+          application/json:
+            example: "" 

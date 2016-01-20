@@ -1,0 +1,92 @@
+displayName: Achievements
+type: collection
+get:
+  description: Gets an entire collection of achievement templates.
+  is: [ paginable, sortable, query, fieldable ]
+  responses:
+    200:
+      body:
+        application/json:
+          example: !include examples/achievements.json
+          schema: !include schemas/achievements.json
+/{achievementId}:
+  type: collection-item
+  uriParameters:
+    achievementId:
+      pattern: "^[A-Za-z0-9_-]+$"  
+  get:
+    description: Gets an achievement template by its id.
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/achievement.json
+            schema: !include schemas/achievement.json
+  put:
+    description: Creates or edits an achievement template with a specified id.
+    body:
+      application/json:
+        example: !include examples/achievement_put.json
+        schema: !include schemas/achievement_put.json
+    responses:
+      201:
+        body: 
+          application/json:
+           example: !include examples/achievement.json
+           schema: !include schemas/achievement.json
+      200:
+        body: 
+          application/json:
+           example: !include examples/achievement.json
+           schema: !include schemas/achievement.json     
+      202:
+        headers:
+          Pending:
+            description: an array with ids of pending operations
+            type: string
+            required: true
+            example: !include static-examples/pending_header.json
+        body:
+          application/json:
+            example: ""
+            schema: ""
+  patch:
+    description: Updates an achievement template partially by its id.
+    body:
+      application/json:
+        example: !include examples/achievement_patch.json
+        schema: !include schemas/achievement_patch.json
+    responses:
+      200:
+          body: 
+            application/json:
+             example: !include examples/achievement.json
+             schema: !include schemas/achievement.json    
+      202:
+        headers:
+          Pending:
+            description: an array with ids of pending operations
+            type: string
+            required: true
+            example: !include static-examples/pending_header.json
+        body:
+          application/json:
+            example: ""
+            schema: ""                          
+  delete:
+    description: Deletes an achievement template by its id.
+    responses:
+      204:
+        body:
+          application/json:
+            example: ""
+      202:
+        headers:
+          Pending:
+            description: an array with ids of pending operations
+            type: string
+            required: true
+            example: !include static-examples/pending_header.json
+        body:
+          application/json:
+            example: ""

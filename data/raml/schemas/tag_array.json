@@ -1,0 +1,9 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "tag array",
+    "type": "array",
+    "items": {
+        "description": "tags attributed to the user/group",
+        "type": "string"
+    }
+}

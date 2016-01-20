@@ -1,0 +1,29 @@
+{
+	"$schema": "http://json-schema/draft-04/schema#",
+	"description": "a voucher object for PATCH",
+	"type": "object",
+	"properties": { 
+		"picture": {
+			"description": "URL address of the picture of the voucher",
+			"type": "string"
+		},
+		"startDate": {
+			"description": "the start date of the voucher in the YYYY-MM-DD format",
+			"type": "string"
+		},
+		"endDate": {
+			"description": "the end date of the voucher in the YYYY-MM-DD format",
+			"type": "string"
+		}		
+	},
+	"additionalProperties": {
+		"type": [ "string", "object", "boolean", "array", "number" ],
+		"description": "a voucher property added by the admin, a key:value pair of any data type"
+	},
+    "patternProperties": {
+    	"[$.]": {
+    		"not": {}
+    	}
+    },	
+	"required": [ ]
+}

@@ -1,0 +1,64 @@
+{
+	"$schema": "http://json-schema/draft-04/schema#",
+	"description": "a code list for PATCH",
+	"type": "array",
+	"items": {
+		"oneOf": [ 
+
+	    	{ 
+		      	"type": "object",
+		      	"properties": {
+		      		"id": {
+		      			"type": "string",
+		      			"description": "the id of the code"
+		      		},
+					"status": {
+						"enum": [ "assigned", "redeemed" ],
+						"description": "the status of the code"
+					},
+					"ownerId": {
+						"type": "string",
+						"description": "the id of the user the code is assigned to"
+					}
+				},
+				"additionalProperties": {
+					"type": [ "string", "object", "boolean", "array", "number" ],
+					"description": "a code property added by the admin, a key:value pair of any data type"
+				},
+				"patternProperties": {
+					"[$.]|^voucherId$": {
+						"description": "forbidden characters in properties - dollar signs $ and dots .; forbidden names in property keys - voucherId",
+						"not": {}
+					}
+				},
+				"required": [ "id", "status", "ownerId" ]
+	    	},
+
+			{
+		        "type": "object",
+		      	"properties": {
+		      		"id": {
+		      			"type": "string",
+		      			"description": "the id of the code"
+		      			},
+					"status": {
+						"enum": [ "disabled" ],
+						"description": "the status of the code"
+						}
+					},
+				"additionalProperties": {
+					"type": [ "string", "object", "boolean", "array", "number" ],
+					"description": "a code property added by the admin, a key:value pair of any data type"
+				},
+				"patternProperties": {
+					"[$.]|^voucherId$|^ownerId$": {
+						"description": "forbidden characters in properties - dollar signs $ and dots .; forbidden names in property keys - voucherId",
+						"not": {}
+					}
+				},
+				"required": [ ]
+	        }
+	        
+		]
+	}
+}
